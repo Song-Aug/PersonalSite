@@ -8,6 +8,8 @@ import Experience from './pages/Experience'
 import Notes from './pages/Notes'
 import NoteDetail from './pages/NoteDetail'
 
+import Life from './pages/Life'
+
 function App() {
   const etherColors = useMemo(() => ['#C0C0C0', '#818dfaff', '#fde4ce09'], [])
 
@@ -17,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HeroSection />} />
           <Route path="/experience" element={<Experience />} />
+          <Route path="/life" element={<Life />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/notes/:slug" element={<NoteDetail />} />
