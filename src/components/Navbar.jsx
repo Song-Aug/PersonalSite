@@ -38,16 +38,15 @@ export default function Navbar() {
         <Link
           to="/"
           className={mergeClasses(
-            'pointer-events-auto text-3xl font-extrabold tracking-wide text-white/95 transform transition-transform duration-200 hover:scale-105 hover:font-black hover:drop-shadow-[0_0_24px_rgba(196,181,253,0.55)]',
+            'pointer-events-auto text-3xl font-extrabold tracking-wide text-white/95 transform transition-transform duration-200 hover:scale-105 hover:font-black hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]',
             pathname === '/'
-              ? 'text-white drop-shadow-[0_0_26px_rgba(192,132,252,0.6)]'
+              ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]'
               : '',
           )}
           onClick={closeMenu}
         >
           Rove
         </Link>
-
         <div className="flex items-center gap-4 pointer-events-none md:gap-6">
           <ul className="hidden items-center gap-5 pointer-events-none md:flex md:gap-8">
             {menuItems.map(link => (
@@ -55,9 +54,9 @@ export default function Navbar() {
                 <Link
                   to={link.href}
                   className={mergeClasses(
-                    'pointer-events-auto text-base font-semibold tracking-wide text-white/90 transform transition-transform duration-200 md:text-lg hover:-translate-y-0.5 hover:scale-105 hover:font-bold hover:drop-shadow-[0_0_22px_rgba(196,181,253,0.5)]',
+                    'pointer-events-auto text-base font-semibold tracking-wide text-white/90 transform transition-transform duration-200 md:text-lg hover:-translate-y-0.5 hover:scale-105 hover:font-bold',
                     link.isActive
-                      ? 'font-bold text-white drop-shadow-[0_0_24px_rgba(192,132,252,0.55)]'
+                      ? 'font-bold text-white'
                       : '',
                   )}
                   onClick={closeMenu}
@@ -71,10 +70,10 @@ export default function Navbar() {
                 to={contactLink.href}
                 onClick={closeMenu}
                 className={mergeClasses(
-                  'pointer-events-auto rounded-full border px-5 py-2.5 text-base font-semibold transition-all duration-200 md:text-lg shadow-[0_0_8px_rgba(15,23,42,0.35)]',
+                  'pointer-events-auto rounded-full border px-5 py-2.5 text-base font-semibold transition-all duration-200 md:text-lg shadow-sm',
                   contactLink.isActive
-                    ? 'border-violet-500 bg-violet-500/20 text-violet-100 shadow-[0_0_26px_rgba(139,92,246,0.5)]'
-                    : 'border-white/35 text-white/90 hover:border-violet-400 hover:bg-violet-500/15 hover:text-violet-100 hover:shadow-[0_0_24px_rgba(139,92,246,0.45)]',
+                    ? 'border-white bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.3)]'
+                    : 'border-white/20 text-white/90 hover:border-white/40 hover:bg-white/5 hover:text-white',
                 )}
               >
                 {contactLink.label}
@@ -85,7 +84,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={toggleMenu}
-            className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-slate-100 transition-colors duration-200 hover:border-white/40 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 md:hidden"
+            className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-slate-100 transition-colors duration-200 hover:border-white/40 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:hidden"
             aria-label="Toggle navigation menu"
             aria-expanded={isOpen}
           >
@@ -119,7 +118,7 @@ export default function Navbar() {
           isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
         )}
       >
-        <div className="mx-4 mb-4 rounded-2xl border border-white/10 bg-slate-950/90 p-6 text-base text-slate-200 shadow-lg backdrop-blur-lg transition-opacity duration-200">
+        <div className="mx-4 mb-4 rounded-2xl border border-white/10 bg-black/90 p-6 text-base text-slate-200 shadow-lg backdrop-blur-lg transition-opacity duration-200">
           <ul className="space-y-5">
             {menuItems.map(link => (
               <li key={link.label}>
@@ -129,8 +128,8 @@ export default function Navbar() {
                   className={mergeClasses(
                     'block rounded-lg px-2 py-2 text-base font-semibold transform transition-transform duration-200',
                     link.isActive
-                      ? 'bg-slate-900/90 text-white drop-shadow-[0_0_22px_rgba(192,132,252,0.45)]'
-                      : 'hover:-translate-y-0.5 hover:bg-slate-900/70 hover:drop-shadow-[0_0_18px_rgba(196,181,253,0.4)]',
+                      ? 'bg-white/10 text-white'
+                      : 'hover:-translate-y-0.5 hover:bg-white/5',
                   )}
                 >
                   {link.label}
@@ -142,10 +141,10 @@ export default function Navbar() {
                 to={contactLink.href}
                 onClick={closeMenu}
                 className={mergeClasses(
-                  'block rounded-full border px-4 py-2 text-center text-base font-semibold transition-all duration-200 shadow-[0_0_8px_rgba(15,23,42,0.35)]',
+                  'block rounded-full border px-4 py-2 text-center text-base font-semibold transition-all duration-200 shadow-sm',
                   contactLink.isActive
-                    ? 'border-violet-500 bg-violet-500/20 text-violet-100 shadow-[0_0_26px_rgba(139,92,246,0.5)]'
-                    : 'border-white/35 text-white/90 hover:border-violet-400 hover:bg-violet-500/15 hover:text-violet-100 hover:shadow-[0_0_24px_rgba(139,92,246,0.45)]',
+                    ? 'border-white bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.3)]'
+                    : 'border-white/20 text-white/90 hover:border-white/40 hover:bg-white/5 hover:text-white',
                 )}
               >
                 {contactLink.label}

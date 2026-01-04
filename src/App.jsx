@@ -5,7 +5,7 @@ import HeroSection from './components/HeroSection'
 import Contact from './pages/Contact'
 
 function App() {
-  const etherColors = useMemo(() => ['#5227FF', '#FF9FFC', '#B19EEF'], [])
+  const etherColors = useMemo(() => ['#C0C0C0', '#818dfaff', '#fde4ce09'], [])
 
   return (
     <BrowserRouter>

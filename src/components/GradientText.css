@@ -62,7 +62,7 @@
   -webkit-background-clip: text;
   color: transparent;
   animation: gradient linear infinite;
-  filter: drop-shadow(0 8px 22px rgba(79, 70, 229, 0.35)) drop-shadow(0 2px 8px rgba(236, 72, 153, 0.25));
+  filter: drop-shadow(0 0 1px rgba(255,255,255,0.4));
 }
 
 .gradient-word-spaced .text-content {
