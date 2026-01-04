@@ -21,43 +21,19 @@ const EXPERIENCES = [
   },
   {
     id: 3,
-    period: '2022 — 2023',
-    role: 'Research Intern',
-    company: 'AI Research Institute',
-    description: 'Conducted research on self-supervised learning for computer vision tasks. Published at CVPR.',
-    tags: ['Research', 'CV', 'Deep Learning'],
+    period: '2024.12 — 2025.03',
+    role: 'Algorithm Engineer Intern',
+    company: '4Paradigm Inc.',
+    description: 'Iterated Multi-Task Learning (MTL) models by upgrading SharedBottom to MMoE structure, mitigating conflicts between View Completion and Like tasks. Implemented fine-grained score fusion strategies based on user segments and categories, achieving dual metric gains.',
+    tags: ['Multi-Task Learning', 'MMoE', 'Gradient Conflict', 'Score Fusion', 'User Segmentation'],
   },
   {
     id: 4,
-    period: '2020 — 2022',
-    role: 'Master of Computer Science',
-    company: 'Top University',
-    description: 'Thesis on efficient transformer architectures. Teaching assistant for Machine Learning course.',
-    tags: ['Academic', 'Transformers', 'NLP'],
-  },
-  {
-    id: 5,
-    period: '2019 — 2020',
-    role: 'Software Engineer Intern',
-    company: 'Startup Inc.',
-    description: 'Built full-stack web applications using React and Node.js. Optimized database queries for speed.',
-    tags: ['React', 'Node.js', 'PostgreSQL'],
-  },
-  {
-    id: 6,
-    period: '2016 — 2020',
-    role: 'Bachelor of Software Engineering',
-    company: 'Another University',
-    description: 'Graduated with Honors. Lead developer for the university coding club. Organized hackathons.',
-    tags: ['Algorithms', 'Java', 'Leadership'],
-  },
-  {
-    id: 7,
-    period: '2015 — 2016',
-    role: 'Open Source Contributor',
-    company: 'Community',
-    description: 'Started journey into programming by contributing to various open source projects on GitHub.',
-    tags: ['Open Source', 'Git', 'Linux'],
+    period: '2018.09 — 2023.06',
+    role: 'Undergraduate of Surveying and Mapping',
+    company: 'Tongji University',
+    description: 'Awarded "Excellent Graduate of Tongji University 2023". Led the University Water Polo Team as Captain to win the National Championship (Group A). Won National 1st Prize in Surveying Paper Competition and "Internet+" Shanghai Bronze. Completed 1-year intensive German training.',
+    tags: ['Excellent Graduate', 'Water Polo Captain', 'National Champion', 'German', 'Surveying'],
   },
 ]
 
@@ -129,7 +105,7 @@ export default function Experience() {
     
     // Boundary checks
     const isAtTop = latest < 50; // Near top
-    const isAtBottom = (latest + containerHeight) >= (scrollHeight - 50); // Near bottom
+    const isAtBottom = (latest + containerHeight) >= (scrollHeight - 1); // Near bottom
 
     if (isAtTop) {
       activeIndex = 0
