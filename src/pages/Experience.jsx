@@ -1,5 +1,5 @@
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useScroll, useSpring, useMotionValue, useMotionValueEvent } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
 import GradientText from '../components/GradientText'
 
 const EXPERIENCES = [
@@ -61,9 +61,10 @@ const EXPERIENCES = [
   },
 ]
 
-const ExperienceCard = ({ item, index }) => {
+const ExperienceCard = ({ item, index, setRef }) => {
   return (
     <motion.div
+      ref={setRef}
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -100,18 +101,62 @@ const ExperienceCard = ({ item, index }) => {
 
 export default function Experience() {
   const containerRef = useRef(null)
+  const cardsRef = useRef([])
   
-  const { scrollYProgress } = useScroll({
-    container: containerRef, // Track scroll within this specific container
-    offset: ["start start", "end end"]
+  const { scrollY } = useScroll({
+    container: containerRef,
   })
+
+  const targetHeight = useMotionValue(0)
   
-  const mapY = useTransform(scrollYProgress, [0, 1], [0.08, 0.95])
-  
-  const scaleY = useSpring(mapY, {
+  const smoothHeight = useSpring(targetHeight, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 1
+  })
+
+  // Update logic on scroll
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (!containerRef.current) return
+
+    // 1. Get container metrics
+    const containerHeight = containerRef.current.offsetHeight
+    const scrollHeight = containerRef.current.scrollHeight
+    const activePoint = latest + containerHeight * 0.35
+
+    // 2. Find the closest card
+    let activeIndex = 0
+    
+    // Boundary checks
+    const isAtTop = latest < 50; // Near top
+    const isAtBottom = (latest + containerHeight) >= (scrollHeight - 50); // Near bottom
+
+    if (isAtTop) {
+      activeIndex = 0
+    } else if (isAtBottom) {
+      activeIndex = cardsRef.current.length - 1
+    } else {
+      let closestDist = Infinity
+      
+      cardsRef.current.forEach((card, index) => {
+        if (!card) return
+        
+        const cardCenter = card.offsetTop + card.offsetHeight / 2
+        
+        const dist = Math.abs(cardCenter - activePoint)
+        if (dist < closestDist) {
+          closestDist = dist
+          activeIndex = index
+        }
+      })
+    }
+
+    // 3. Calculate target height
+    const activeCard = cardsRef.current[activeIndex]
+    if (activeCard) {
+      const cardCenter = activeCard.offsetTop + activeCard.offsetHeight / 2
+      targetHeight.set(cardCenter)
+    }
   })
 
   return (
@@ -145,13 +190,18 @@ export default function Experience() {
 
             {/* Scroll Line - Animated Progress Overlay */}
             <motion.div 
-              className="absolute left-[-1px] top-0 bottom-0 w-[2px] bg-white origin-top"
-              style={{ scaleY: scaleY}}
+              className="absolute left-[-1px] top-0 w-[2px] bg-white origin-top"
+              style={{ height: smoothHeight }}
             />
             
             <div className="flex flex-col gap-12" style={{ paddingTop: '5vh'}} >
               {EXPERIENCES.map((item, index) => (
-                <ExperienceCard key={item.id} item={item} index={index} />
+                <ExperienceCard 
+                  key={item.id} 
+                  item={item} 
+                  index={index} 
+                  setRef={(el) => (cardsRef.current[index] = el)}
+                />
               ))}
             </div>
           </div>
