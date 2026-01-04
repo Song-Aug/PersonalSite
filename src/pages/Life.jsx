@@ -1,10 +1,16 @@
 
+import { useNavigate } from 'react-router-dom'
 import BentoCard from '../components/BentoCard'
 import GradientText from '../components/GradientText'
 import { motion } from 'framer-motion'
 import { FaSpotify, FaMapMarkerAlt, FaWalking, FaBook, FaCamera } from 'react-icons/fa'
 
+import mapBg from '../assets/life_map_shanghai.png'
+import hikingBg from '../assets/life_hiking.png'
+import waterPoloBg from '../assets/life_water_polo.png'
+
 export default function Life() {
+  const navigate = useNavigate()
   return (
     <div className="min-h-screen pt-24 px-4 sm:px-8 pb-20 max-w-7xl mx-auto pointer-events-auto">
       {/* Header */}
@@ -44,14 +50,17 @@ export default function Life() {
         </BentoCard>
 
         {/* 2. Map - Square Block */}
-        <BentoCard className="col-span-1 row-span-1 flex flex-col items-center justify-center bg-blue-900/20 group cursor-pointer" delay={0.1}>
-           <div className="absolute inset-0 bg-[url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/121.4737,31.2304,11,0/400x400?access_token=Pk.eyJ1IjoiZXhhbXBsZSJ9')] bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity mix-blend-luminosity" />
-           <div className="relative z-10 flex flex-col items-center">
-              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-2 animate-pulse">
+        <BentoCard className="col-span-1 row-span-1 flex flex-col items-center justify-center bg-blue-900/20 group cursor-pointer overflow-hidden relative" delay={0.1}>
+           <div 
+             className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity mix-blend-luminosity duration-700" 
+             style={{ backgroundImage: `url(${mapBg})` }}
+           />
+           <div className="relative z-10 flex flex-col items-center p-4">
+              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-2 animate-pulse shadow-[0_0_15px_rgba(59,130,246,0.5)]">
                 <FaMapMarkerAlt className="text-blue-400 text-xl" />
               </div>
-              <h4 className="text-lg font-bold text-white">Shanghai</h4>
-              <p className="text-xs text-blue-200/60">Base Coordinates</p>
+              <h4 className="text-lg font-bold text-white drop-shadow-md">Shanghai</h4>
+              <p className="text-xs text-blue-200/80 font-mono">31.23° N, 121.47° E</p>
            </div>
         </BentoCard>
 
@@ -71,15 +80,22 @@ export default function Life() {
 
 
         {/* 4. Photo - Tall Vertical */}
-        <BentoCard className="col-span-1 row-span-2 group relative p-0" delay={0.3}>
-           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-           {/* Placeholder for vertical photo (e.g. Hiking) */}
-           <div className="absolute inset-0 bg-gray-800 flex items-center justify-center text-white/20 group-hover:scale-105 transition-transform duration-700">
-              [Vertical Photo: Hiking]
-           </div>
+        <BentoCard 
+          className="col-span-1 row-span-2 group relative p-0 overflow-hidden cursor-pointer" 
+          delay={0.3}
+          onClick={() => navigate('/life/hiking')}
+        >
+           <img 
+             src={hikingBg} 
+             alt="Hiking Huangshan" 
+             className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 filter brightness-75 group-hover:brightness-100"
+           />
+           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
            <div className="absolute bottom-4 left-4 z-20">
-              <h4 className="text-white font-bold">Mount Huangshan</h4>
-              <p className="text-xs text-white/60">2023.11 · Trekking</p>
+              <h4 className="text-white font-bold text-xl mb-1">Mount Huangshan</h4>
+              <p className="text-xs text-white/70 font-light tracking-wide flex items-center gap-2">
+                <FaWalking className="text-[10px]" /> 2023.11 · Trekking
+              </p>
            </div>
         </BentoCard>
 
@@ -125,21 +141,25 @@ export default function Life() {
         </BentoCard>
 
         {/* 7. Photo - Detailed */}
-        <BentoCard className="col-span-1 md:col-span-2 row-span-1 relative overflow-hidden group p-0" delay={0.6}>
-           <div className="absolute inset-0 bg-blue-900/20" />
-           {/* Placeholder for horizontal photo (e.g. Water Polo) */}
-           <div className="absolute inset-0 flex items-center justify-center text-white/20 group-hover:scale-105 transition-transform duration-700">
-               [Wide Photo: Water Polo Match]
-           </div>
-           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent z-10" />
+        <BentoCard 
+          className="col-span-1 md:col-span-2 row-span-1 relative overflow-hidden group p-0 cursor-pointer" 
+          delay={0.6}
+          onClick={() => navigate('/life/photos')}
+        >
+           <img 
+             src={waterPoloBg} 
+             alt="Water Polo Match" 
+             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-75 group-hover:brightness-100"
+           />
+           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent z-10" />
            <div className="absolute bottom-4 left-6 z-20">
-               <div className="flex items-center gap-2 mb-1">
-                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-yellow-500/20 text-yellow-300 border border-yellow-500/20">
+               <div className="flex items-center gap-2 mb-2">
+                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-yellow-500/20 text-yellow-300 border border-yellow-500/20 backdrop-blur-sm">
                     GOLD MEDAL
                  </span>
                </div>
-               <h4 className="text-white font-bold text-lg">National Championship</h4>
-               <p className="text-xs text-white/60">Team Captain · 2023</p>
+               <h4 className="text-white font-bold text-xl">National Championship</h4>
+               <p className="text-xs text-white/70">Team Captain · 2023</p>
            </div>
         </BentoCard>
 
