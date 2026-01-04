@@ -8,7 +8,10 @@ const EXPERIENCES = [
     period: '2023.09 — Present',
     role: 'Master of Remote Sensing',
     company: 'Tongji University',
-    description: 'Optimizing Deep Learning for Remote Sensing via Contrastive Learning and Multimodal Fusion. Researching efficient inference pipelines for large-scale scene interpretation.',
+    description: [
+      'Optimizing Deep Learning for Remote Sensing via Contrastive Learning and Multimodal Fusion.',
+      'Researching efficient inference pipelines for large-scale scene interpretation.'
+    ],
     tags: ['Deep Learning', 'Contrastive Learning', 'Multimodal'],
   },
   {
@@ -16,7 +19,12 @@ const EXPERIENCES = [
     period: '2025.04 — 2025.12',
     role: 'Algorithm Engineer Intern',
     company: 'Xiaohongshu Inc.', 
-    description: 'Live Feed Ranking & Streamer Growth. Optimized long-tail ID representation via Meta-learning and Contrastive Learning, boosting prediction accuracy for Re-ranking. Improved new streamer retention through potential-based distribution strategies. Achieved resource and duration gains via Mixup and architecture optimization.',
+    description: [
+      'Live Feed Ranking & Streamer Growth.',
+      'Optimized long-tail ID representation via Meta-learning and Contrastive Learning, boosting prediction accuracy for Re-ranking.',
+      'Improved new streamer retention through potential-based distribution strategies.',
+      'Achieved resource and duration gains via Mixup and architecture optimization.'
+    ],
     tags: ['Recommender Systems', 'Meta Learning', 'Contrastive Learning', 'Cold Start', 'RankMixer', 'CGC'],
   },
   {
@@ -24,7 +32,10 @@ const EXPERIENCES = [
     period: '2024.12 — 2025.03',
     role: 'Algorithm Engineer Intern',
     company: '4Paradigm Inc.',
-    description: 'Iterated Multi-Task Learning (MTL) models by upgrading SharedBottom to MMoE structure, mitigating conflicts between View Completion and Like tasks. Implemented fine-grained score fusion strategies based on user segments and categories, achieving dual metric gains.',
+    description: [
+      'Iterated Multi-Task Learning (MTL) models by upgrading SharedBottom to MMoE structure, mitigating conflicts between View Completion and Like tasks.',
+      'Implemented fine-grained score fusion strategies based on user segments and categories, achieving dual metric gains.'
+    ],
     tags: ['Multi-Task Learning', 'MMoE', 'Gradient Conflict', 'Score Fusion', 'User Segmentation'],
   },
   {
@@ -32,10 +43,29 @@ const EXPERIENCES = [
     period: '2018.09 — 2023.06',
     role: 'Undergraduate of Surveying and Mapping',
     company: 'Tongji University',
-    description: 'Awarded "Excellent Graduate of Tongji University 2023". Led the University Water Polo Team as Captain to win the National Championship (Group A). Won National 1st Prize in Surveying Paper Competition and "Internet+" Shanghai Bronze. Completed 1-year intensive German training.',
+    description: [
+      'Awarded "Excellent Graduate of Tongji University 2023".',
+      'Led the University Water Polo Team as Captain to win the National Championship (Group A).',
+      'Won National 1st Prize in Surveying Paper Competition and "Internet+" Shanghai Bronze.',
+      'Completed 1-year intensive German training.'
+    ],
     tags: ['Excellent Graduate', 'Water Polo Captain', 'National Champion', 'German', 'Surveying'],
   },
 ]
+
+const DescriptionList = ({ items, level = 0 }) => (
+  <ul className={`list-outside ${level > 0 ? 'ml-4 mt-1' : 'ml-4'} ${level === 0 ? 'list-disc' : 'list-[circle]'} space-y-1`}>
+    {items.map((item, index) => (
+      <li key={index} className={Array.isArray(item) ? "list-none" : ""}>
+        {Array.isArray(item) ? (
+          <DescriptionList items={item} level={level + 1} />
+        ) : (
+          item
+        )}
+      </li>
+    ))}
+  </ul>
+)
 
 const ExperienceCard = ({ item, index, setRef }) => {
   return (
@@ -56,9 +86,13 @@ const ExperienceCard = ({ item, index, setRef }) => {
           <span className="font-mono text-xs text-white/50 group-hover:text-white/80">{item.period}</span>
         </div>
         
-        <p className="mb-4 text-sm leading-relaxed text-white/70 group-hover:text-white/90">
-          {item.description}
-        </p>
+        <div className="mb-4 text-sm leading-relaxed text-white/70 group-hover:text-white/90">
+          {Array.isArray(item.description) ? (
+            <DescriptionList items={item.description} />
+          ) : (
+            <p>{item.description}</p>
+          )}
+        </div>
 
         <div className="flex flex-wrap gap-2">
           {item.tags.map((tag) => (
