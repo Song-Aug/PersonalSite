@@ -4,8 +4,21 @@ import GradientText from '../components/GradientText'
 
 const EXPERIENCES = [
   {
-    id: 1,
-    period: '2023.09 — Present',
+    id: 5,
+    period: '2026.02 — Present',
+    role: 'Recommendation Algorithm Engineer',
+    company: 'Xiaohongshu Inc.', 
+    description: [
+      'Live Feed Ranking & Streamer Growth.',
+      'Optimized long-tail ID representation via Meta-learning and Contrastive Learning, boosting prediction accuracy for Re-ranking.',
+      'Improved new streamer retention through potential-based distribution strategies.',
+      'Achieved resource and duration gains via Mixup and architecture optimization.'
+    ],
+    tags: ['Recommender Systems', 'Meta Learning', 'Contrastive Learning', 'Cold Start', 'RankMixer', 'CGC'],
+  },
+  {
+    id: 4,
+    period: '2023.09 — 2026.06',
     role: 'Master of Remote Sensing',
     company: 'Tongji University',
     description: [
@@ -15,7 +28,7 @@ const EXPERIENCES = [
     tags: ['Deep Learning', 'Contrastive Learning', 'Multimodal'],
   },
   {
-    id: 2,
+    id: 3,
     period: '2025.04 — 2025.12',
     role: 'Algorithm Engineer Intern',
     company: 'Xiaohongshu Inc.', 
@@ -28,7 +41,7 @@ const EXPERIENCES = [
     tags: ['Recommender Systems', 'Meta Learning', 'Contrastive Learning', 'Cold Start', 'RankMixer', 'CGC'],
   },
   {
-    id: 3,
+    id: 2,
     period: '2024.12 — 2025.03',
     role: 'Algorithm Engineer Intern',
     company: '4Paradigm Inc.',
@@ -39,7 +52,7 @@ const EXPERIENCES = [
     tags: ['Multi-Task Learning', 'MMoE', 'Gradient Conflict', 'Score Fusion', 'User Segmentation'],
   },
   {
-    id: 4,
+    id: 1,
     period: '2018.09 — 2023.06',
     role: 'Undergraduate of Surveying and Mapping',
     company: 'Tongji University',
@@ -112,7 +125,7 @@ const ExperienceCard = ({ item, index, setRef }) => {
 export default function Experience() {
   const containerRef = useRef(null)
   const cardsRef = useRef([])
-  
+
   const { scrollY } = useScroll({
     container: containerRef,
   })
@@ -125,21 +138,20 @@ export default function Experience() {
     restDelta: 1
   })
 
-  // Update logic on scroll
-  useMotionValueEvent(scrollY, "change", (latest) => {
+  const updateTimeline = (currentScrollY) => {
     if (!containerRef.current) return
 
     // 1. Get container metrics
     const containerHeight = containerRef.current.offsetHeight
     const scrollHeight = containerRef.current.scrollHeight
-    const activePoint = latest + containerHeight * 0.35
+    const activePoint = currentScrollY + containerHeight * 0.35
 
     // 2. Find the closest card
     let activeIndex = 0
     
     // Boundary checks
-    const isAtTop = latest < 50; // Near top
-    const isAtBottom = (latest + containerHeight) >= (scrollHeight - 1); // Near bottom
+    const isAtTop = currentScrollY < 50
+    const isAtBottom = (currentScrollY + containerHeight) >= (scrollHeight - 1)
 
     if (isAtTop) {
       activeIndex = 0
@@ -167,7 +179,18 @@ export default function Experience() {
       const cardCenter = activeCard.offsetTop + activeCard.offsetHeight / 2
       targetHeight.set(cardCenter)
     }
-  })
+  }
+
+  // Update logic on scroll
+  useMotionValueEvent(scrollY, "change", updateTimeline)
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 0
+      // Initialize timeline position
+      updateTimeline(0)
+    }
+  }, [])
 
   return (
     <section className="relative flex h-screen flex-col overflow-hidden px-4 pt-24 sm:px-10 pointer-events-auto">
