@@ -124,7 +124,7 @@ const ExperienceCard = ({ item, index, setRef }) => {
 
 export default function Experience() {
   const containerRef = useRef(null)
-  const cardsRef = useRef([])
+  const itemsRef = useRef(new Map())
 
   const { scrollY } = useScroll({
     container: containerRef,
@@ -153,16 +153,17 @@ export default function Experience() {
     const isAtTop = currentScrollY < 50
     const isAtBottom = (currentScrollY + containerHeight) >= (scrollHeight - 1)
 
+    // Get sorted cards based on EXPERIENCES order
+    const cards = EXPERIENCES.map(item => itemsRef.current.get(item.id)).filter(Boolean)
+
     if (isAtTop) {
       activeIndex = 0
     } else if (isAtBottom) {
-      activeIndex = cardsRef.current.length - 1
+      activeIndex = cards.length - 1
     } else {
       let closestDist = Infinity
       
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return
-        
+      cards.forEach((card, index) => {
         const cardCenter = card.offsetTop + card.offsetHeight / 2
         
         const dist = Math.abs(cardCenter - activePoint)
@@ -174,7 +175,7 @@ export default function Experience() {
     }
 
     // 3. Calculate target height
-    const activeCard = cardsRef.current[activeIndex]
+    const activeCard = cards[activeIndex]
     if (activeCard) {
       const cardCenter = activeCard.offsetTop + activeCard.offsetHeight / 2
       targetHeight.set(cardCenter)
@@ -233,7 +234,10 @@ export default function Experience() {
                   key={item.id} 
                   item={item} 
                   index={index} 
-                  setRef={(el) => (cardsRef.current[index] = el)}
+                  setRef={(el) => {
+                    if (el) itemsRef.current.set(item.id, el)
+                    else itemsRef.current.delete(item.id)
+                  }}
                 />
               ))}
             </div>
