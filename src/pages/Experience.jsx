@@ -86,7 +86,7 @@ const ExperienceCard = ({ item, index, setRef }) => {
       ref={setRef}
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group relative"
     >
