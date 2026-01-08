@@ -1,12 +1,15 @@
-
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkMath from 'remark-math'
 import remarkGfm from 'remark-gfm'
 import rehypeKatex from 'rehype-katex'
-import { NOTES } from './Notes'
+import { notesData } from '../data/notesData' // Import external data
 import 'katex/dist/katex.min.css' // Import Katex CSS
 import { motion } from 'framer-motion'
+
+// Import all markdown files as raw strings
+const noteFiles = import.meta.glob('../posts/notes/*.md', { query: '?raw', import: 'default' })
 
 // Custom components for Markdown rendering
 const MarkdownComponents = {
@@ -43,7 +46,30 @@ const MarkdownComponents = {
 
 export default function NoteDetail() {
   const { slug } = useParams()
-  const note = NOTES.find(n => n.slug === slug)
+  const note = notesData.find(n => n.slug === slug)
+  const [content, setContent] = useState('')
+
+  useEffect(() => {
+    async function loadNote() {
+      if (!slug) return
+
+      // Construct expected path
+      const filePath = `../posts/notes/${slug}.md`
+      
+      if (noteFiles[filePath]) {
+        try {
+          const rawMd = await noteFiles[filePath]()
+          setContent(rawMd)
+        } catch (error) {
+          console.error('Error loading note markdown:', error)
+          setContent('# Error loading note')
+        }
+      } else {
+        setContent('# Note not found\nContent coming soon...')
+      }
+    }
+    loadNote()
+  }, [slug])
 
   if (!note) {
     return (
@@ -52,7 +78,7 @@ export default function NoteDetail() {
             <h1 className="text-4xl font-bold mb-4">404</h1>
             <p className="mb-8 text-white/60">Note not found</p>
             <Link to="/notes" className="px-6 py-2 bg-white text-black rounded-full hover:bg-gray-200 transition-colors">
-                Back to Garden
+                Back to Research
             </Link>
         </div>
       </div>
@@ -70,25 +96,25 @@ export default function NoteDetail() {
         {/* Breadcrumb / Back Navigation */}
         <Link 
             to="/notes" 
-            className="inline-flex items-center text-sm text-white/40 hover:text-white transition-colors mb-8 group"
+            className="inline-flex items-center text-sm font-sans text-white/40 hover:text-white transition-colors mb-12 group"
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 group-hover:-translate-x-1 transition-transform">
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
-            Back to Digital Garden
+            Back to Research
         </Link>
         
         {/* Header */}
-        <header className="mb-12 border-b border-white/10 pb-12">
-            <div className="flex gap-3 mb-6">
+        <header className="mb-16 border-b border-white/10 pb-12">
+            <div className="flex gap-4 mb-6">
                 {note.tags.map(tag => (
-                     <span key={tag} className="text-xs font-mono text-blue-300/80 px-2 py-1 bg-blue-500/10 rounded-full border border-blue-500/20">
+                     <span key={tag} className="text-xs font-mono text-blue-300/80 px-2 py-0.5 border-b border-blue-500/30">
                         #{tag}
                     </span>
                 ))}
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight tracking-tight">
                 {note.title}
             </h1>
             <div className="text-white/40 font-mono text-sm">
@@ -97,7 +123,7 @@ export default function NoteDetail() {
         </header>
 
         {/* Content */}
-        <div className="prose prose-invert prose-lg max-w-none">
+        <div className="prose prose-invert prose-lg max-w-none font-serif leading-loose text-white/90">
             <ReactMarkdown 
                 remarkPlugins={[remarkMath, remarkGfm]}
                 rehypePlugins={[rehypeKatex]}
