@@ -197,7 +197,7 @@ export default function Experience() {
     <section className="relative flex h-screen flex-col overflow-hidden px-4 pt-24 sm:px-10 pointer-events-auto">
       {/* Header Section */}
       <div className="flex-none pb-8 text-left sm:text-center z-10">
-        <div className="mx-auto max-w-4xl space-y-4">
+        <div className="mx-auto max-w-5xl space-y-4">
           <GradientText
             className="block text-4xl font-bold sm:text-5xl"
             colors={["#E0E0E0", "#A0A0A0", "#FFFFFF", "#808080", "#E0E0E0"]}
@@ -219,7 +219,7 @@ export default function Experience() {
           WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)'
         }}
       >
-        <div className="mx-auto min-h-full max-w-4xl pb-32 relative" style={{ paddingBottom: '5vh'}}>
+        <div className="mx-auto min-h-full max-w-5xl pb-32 relative" style={{ paddingBottom: '5vh'}}>
           <div className="relative ml-8 md:ml-12 border-l border-white/10 pl-8 md:pl-12">
 
             {/* Scroll Line - Animated Progress Overlay */}

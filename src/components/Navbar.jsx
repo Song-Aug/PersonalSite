@@ -34,7 +34,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-screen z-50 pointer-events-none">
-  <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-7 pointer-events-none">
+  <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8 pointer-events-none">
         <Link
           to="/"
           className={mergeClasses(

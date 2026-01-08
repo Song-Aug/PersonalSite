@@ -17,9 +17,9 @@ export default function Notes() {
     : NOTES.filter(note => note.tags.includes(filter))
 
   return (
-    <div className="min-h-screen pt-24 px-4 sm:px-10 pb-20 pointer-events-auto">
+    <div className="min-h-screen pt-24 pb-20 pointer-events-auto">
 
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl px-4 md:px-12">
         {/* Ultra-Minimal Header */}
         <div className="mb-8 border-b border-white/10 pb-4 mt-4">
           <p className="text-white/50 max-w-2xl text-base font-light leading-relaxed font-sans">

@@ -142,7 +142,7 @@ export default function Life() {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center pt-16 px-4 sm:px-8 pb-8 pointer-events-auto">
+    <div className="min-h-screen w-full flex flex-col items-center pt-16 pb-8 pointer-events-auto">
       {/* Global Noise Overlay */}
       <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0" 
            style={{ 
@@ -161,7 +161,7 @@ export default function Life() {
       </div>
 
       {/* Main Grid Container - Adaptive 4 Columns */}
-      <div className="relative z-10 w-full max-w-[calc(100vh*1.35)]">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[calc((100vh-240px)/3)]">
            {/* Row 1 & 2: Col 1-2 */}
            <LifeDashboard />
