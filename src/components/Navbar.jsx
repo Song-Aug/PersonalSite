@@ -33,7 +33,7 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false)
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 pointer-events-none">
+    <nav className="fixed top-0 left-0 w-screen z-50 pointer-events-none">
   <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-7 pointer-events-none">
         <Link
           to="/"

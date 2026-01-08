@@ -26,6 +26,7 @@ body {
   min-height: 100vh;
   background: #050212;
   color: #f5f3ff;
+  overflow: hidden; /* Global scroll lock for App-like layout */
 }
 
 #root {
@@ -41,6 +42,25 @@ a:focus-visible,
 button:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.6);
   outline-offset: 4px;
+}
+
+button:focus::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5); /* More visible thumb */
+  border-radius: 4px;
+}
+
+/* Hide Scrollbar Globally but allow scrolling */
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7); /* Bright on hover */
 }
 
 p,
