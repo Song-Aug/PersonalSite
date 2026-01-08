@@ -173,7 +173,7 @@ export default function Contact() {
   return (
     <section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-5 py-16 text-white sm:py-20">
       <div
-        className="relative pointer-events-auto w-full max-w-3xl space-y-6 rounded-3xl border border-white/10 bg-white/5 px-6 py-10 shadow-[0_28px_70px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:px-10 sm:py-12"
+        className="relative pointer-events-auto w-full max-w-4xl space-y-6 rounded-3xl border border-white/10 bg-white/5 px-6 py-10 shadow-[0_28px_70px_rgba(0,0,0,0.5)] backdrop-blur-2xl sm:px-10 sm:py-12"
         onMouseMoveCapture={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -198,7 +198,7 @@ export default function Contact() {
           >
             Hey Bro 👋
           </GradientText>
-          <p className="max-w-2xl text-sm text-white/70 sm:text-base">
+          <p className="max-w-4xl text-sm text-white/70 sm:text-base">
             Glad you found your way here. Whether it's about code, life, or a new spark of inspiration, feel free to start a chat.
           </p>
         </div>
