@@ -4,7 +4,8 @@ import GradientText from './GradientText'
 export default function DistillLayout({ title, subtitle, date, children }) {
   return (
     <div className="min-h-screen pt-24 pb-20 bg-[#0a0a0a] text-gray-200 font-serif leading-relaxed">
-      {/* Article Header */}
+      {/* Article Header (Optional) */}
+      {title && (
       <div className="max-w-[1200px] mx-auto px-6 mb-16 pt-10 text-center">
          <motion.div
            initial={{ opacity: 0, y: 30 }}
@@ -23,6 +24,7 @@ export default function DistillLayout({ title, subtitle, date, children }) {
             {subtitle && <p className="text-xl md:text-2xl text-gray-400 italic font-sans max-w-2xl mx-auto">{subtitle}</p>}
          </motion.div>
       </div>
+      )}
 
       {/* Main Content Area with Sidenote Support */}
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_680px_1fr] gap-8 px-6 relative">

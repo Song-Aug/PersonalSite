@@ -1,63 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FaMountain, FaCalendarAlt, FaMapMarkerAlt, FaRulerHorizontal, FaLevelUpAlt } from 'react-icons/fa'
+import { FaMountain, FaCalendarAlt, FaMapMarkerAlt, FaRulerHorizontal, FaLevelUpAlt, FaClock } from 'react-icons/fa'
+import { hikingTrips } from '../data/hikingTrips'
 
-const TRIPS = [
-  {
-    id: 'huangshan-2023',
-    title: 'Alone in the Clouds: Mount Huangshan',
-    date: '2023.11',
-    location: 'Anhui, China',
-    image: '../assets/life_hiking.png', 
-    desc: 'A solitary winter trek through the misty peaks. Sea of clouds, granite spires, and the silence of high altitude.',
-    stats: { dist: '18km', ele: '1864m', diff: 'Hard' }
-  },
-  {
-    id: 'yosemite-2022',
-    title: 'Valley of Giants: Yosemite',
-    date: '2022.06',
-    location: 'California, USA',
-    image: 'https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?q=80&w=2070&auto=format&fit=crop',
-    desc: 'Camping under El Capitan. Half Dome cables and the roar of the falls.',
-    stats: { dist: '24km', ele: '850m', diff: 'Moderate' }
-  },
-  {
-    id: 'patagonia-2024',
-    title: 'W Trek: Torres del Paine',
-    date: '2024.01',
-    location: 'Patagonia, Chile',
-    image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1587&auto=format&fit=crop',
-    desc: 'Battling the famous Patagonian winds. Turquoise lakes, calving glaciers, and the iconic towers at sunrise.',
-    stats: { dist: '80km', ele: '2800m', diff: 'Expert' }
-  },
-  {
-    id: 'dolomites-2023',
-    title: 'Alta Via 1: Italian Alps',
-    date: '2023.08',
-    location: 'Dolomites, Italy',
-    image: 'https://images.unsplash.com/photo-1486911278844-a81c5267e227?q=80&w=2070&auto=format&fit=crop',
-    desc: 'Jagged limestone peaks piercing the sky. Rifugio culture, espresso on the trail, and wildflowers everywhere.',
-    stats: { dist: '120km', ele: '4500m', diff: 'Hard' }
-  },
-  {
-    id: 'banff-2022',
-    title: 'Icefields Parkway: Banff',
-    date: '2022.09',
-    location: 'Alberta, Canada',
-    image: 'https://images.unsplash.com/photo-1506103004358-132d75cb1c2b?q=80&w=2070&auto=format&fit=crop',
-    desc: 'Turquoise waters of Lake Louise and Moraine Lake. The sheer scale of the Canadian Rockies.',
-    stats: { dist: '15km', ele: '600m', diff: 'Easy' }
-  },
-  {
-    id: 'fuji-2019',
-    title: 'Sunrise Summit: Mt. Fuji',
-    date: '2019.08',
-    location: 'Honshu, Japan',
-    image: 'https://images.unsplash.com/photo-1578271887552-5ac3a72752bc?q=80&w=2069&auto=format&fit=crop',
-    desc: 'The night climb. A sea of headlights zigzagging up the volcanic ash. Watching the sun break the horizon.',
-    stats: { dist: '14km', ele: '1300m', diff: 'Moderate' }
-  }
-]
+const TRIPS = hikingTrips
 
 const TripCard = ({ trip, index, onClick }) => {
   return (
@@ -108,20 +54,38 @@ const TripCard = ({ trip, index, onClick }) => {
            {trip.desc}
          </p>
 
-         {/* Stats Grid */}
+         {/* Stats Grid 2x2 - Compact & Dense */}
          <div className="grid grid-cols-2 gap-2">
-             <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
-                 <FaRulerHorizontal className="text-white/30" />
-                 <div>
-                     <div className="text-[10px] text-white/30 uppercase tracking-wider">Distance</div>
-                     <div className="text-sm font-mono text-white/90">{trip.stats.dist}</div>
+             {/* Days */}
+             <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/5 border border-white/5">
+                 <FaClock className="text-white/30 text-xs shrink-0" />
+                 <div className="flex flex-col">
+                     <div className="text-[9px] text-white/30 uppercase tracking-wider leading-none mb-1">Duration</div>
+                     <div className="text-xs font-mono font-medium text-white/90 leading-none">{trip.stats.days}</div>
                  </div>
              </div>
-             <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
-                 <FaMountain className="text-white/30" />
-                 <div>
-                     <div className="text-[10px] text-white/30 uppercase tracking-wider">Elevation</div>
-                     <div className="text-sm font-mono text-white/90">{trip.stats.ele}</div>
+             {/* Avg Elev */}
+             <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/5 border border-white/5">
+                 <FaMountain className="text-white/30 text-xs shrink-0" />
+                 <div className="flex flex-col">
+                     <div className="text-[9px] text-white/30 uppercase tracking-wider leading-none mb-1">Avg Elev</div>
+                     <div className="text-xs font-mono font-medium text-white/90 leading-none">{trip.stats.avgEle}</div>
+                 </div>
+             </div>
+             {/* Distance */}
+             <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/5 border border-white/5">
+                 <FaRulerHorizontal className="text-white/30 text-xs shrink-0" />
+                 <div className="flex flex-col">
+                     <div className="text-[9px] text-white/30 uppercase tracking-wider leading-none mb-1">Distance</div>
+                     <div className="text-xs font-mono font-medium text-white/90 leading-none">{trip.stats.dist}</div>
+                 </div>
+             </div>
+             {/* Elev Gain */}
+             <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/5 border border-white/5">
+                 <FaLevelUpAlt className="text-white/30 text-xs shrink-0" />
+                 <div className="flex flex-col">
+                     <div className="text-[9px] text-white/30 uppercase tracking-wider leading-none mb-1">Gain</div>
+                     <div className="text-xs font-mono font-medium text-white/90 leading-none">{trip.stats.ele}</div>
                  </div>
              </div>
          </div>
