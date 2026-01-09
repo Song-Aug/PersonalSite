@@ -6,9 +6,9 @@ import { motion } from 'framer-motion'
 import { FaMapMarkerAlt, FaQuoteLeft, FaBookOpen, FaExternalLinkAlt } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 
-import mapBg from '../assets/life_map_shanghai.png'
+import hikePhotoBg from '../assets/hike_photo.jpeg'
 import hikingBg from '../assets/life_hiking.png'
-import waterPoloBg from '../assets/life_water_polo.png'
+import lifePhotoBg from '../assets/life_photo.jpeg'
 
 // --- Sub-Components ---
 
@@ -55,9 +55,10 @@ const PhotoFrame = ({ onClick }) => {
             className="col-span-1 row-span-1 md:col-start-1 md:row-start-3 group relative cursor-pointer overflow-hidden p-0"
             onClick={onClick}
             delay={0.2}
+            style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
         >
              <img 
-               src={waterPoloBg} 
+               src={lifePhotoBg} 
                alt="Gallery Preview"
                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
              />
@@ -77,11 +78,12 @@ const HikingCard = ({ onClick }) => {
       className="col-span-1 md:col-span-2 row-span-1 md:col-start-2 md:row-start-3 group relative cursor-pointer overflow-hidden p-0 bg-[#0f172a]"
       onClick={onClick}
       delay={0.3}
+      style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
     >
       {/* Map Background (Styled) */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-screen transition-all duration-700 group-hover:opacity-60 group-hover:scale-105"
-        style={{ backgroundImage: `url(${mapBg})`, filter: 'grayscale(100%) contrast(1.2)' }}
+        style={{ backgroundImage: `url(${hikePhotoBg})`, filter: 'contrast(1.1)' }}
       />
       
       <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a]/90 via-[#0f172a]/40 to-transparent" />
@@ -96,6 +98,12 @@ const HikingCard = ({ onClick }) => {
             <p className="text-white/50 text-sm mt-1">Tracing the ridgelines.</p>
           </div>
       </div>
+
+      <div className="absolute bottom-3 left-3">
+           <div className="bg-white/10 backdrop-blur-md border border-white/10 p-2 rounded-lg">
+              <FaExternalLinkAlt className="text-white text-xs" />
+           </div>
+       </div>
     </BentoCard>
   )
 }

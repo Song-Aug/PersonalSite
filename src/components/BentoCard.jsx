@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion'
 
-export default function BentoCard({ children, className = "", delay = 0, onClick }) {
+export default function BentoCard({ children, className = "", delay = 0, onClick, ...props }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -9,6 +9,7 @@ export default function BentoCard({ children, className = "", delay = 0, onClick
       transition={{ duration: 0.5, delay }}
       className={`relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-colors hover:bg-white/10 ${className}`}
       onClick={onClick}
+      {...props}
     >
       {children}
     </motion.div>
